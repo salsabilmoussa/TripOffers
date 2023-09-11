@@ -1,0 +1,12 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}Modifier 
+{% endblock %}
+
+{% block body %}
+	<h1>Modifier la grille tarifaire {{ grille_tarifaire.title }}</h1>
+
+	{{ include('grille_tarifaire/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+
+
+{% endblock %}

@@ -1,0 +1,154 @@
+{% block stylesheets %}
+	<link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet"/>
+	<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+{% endblock %}
+{% block body %}
+	{% if is_granted('ROLE_ADMIN') %}
+		<div class="d-flex justify-content-end">
+			<a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModale">
+				<i class="fa-solid fa-circle-plus"></i>
+				<span class="ms-2">Ajouter</span>
+			</a>
+		</div>
+		<br><br>
+	{% endif %}
+    
+	<div id="layoutSidenav_content">
+		<main>
+			<div class="container-fluid px-4">
+				<div class="card mb-4">
+					<div class="card-body">
+						<table id="datatablesSimple">
+							<thead>
+								<tr>
+									<th>Id</th>
+									<th>Titre</th>
+                                    <th>Date debut</th>
+                                    <th>Date fin</th>
+                                    <th>Prix</th>
+                                    <th>Actions</th>
+									
+								</tr>
+							</thead>
+							<tfoot>
+								<tr>
+									<th>Id</th>
+									<th>Titre</th>
+									<th>Date debut</th>
+                                    <th>Date fin</th>
+                                    <th>Prix</th>
+									<th>Actions</th>
+								</tr>
+							</tfoot>
+							<tbody>
+								{% for grille_tarifaire in grilletarifaires %}
+									<tr>
+										<td>{{ grille_tarifaire.id }}</td>
+										<td>{{ grille_tarifaire.title }}</td>
+										<td>{{ grille_tarifaire.dateDebut ? grille_tarifaire.dateDebut|date('Y-m-d') : '' }}</td>
+                                        <td>{{ grille_tarifaire.dateFin ? grille_tarifaire.dateFin|date('Y-m-d') : '' }}</td>
+										<td>{{ grille_tarifaire.prix }}</td>
+										<td>
+											<div class="d-inline-flex">
+												{% if is_granted('ROLE_ADMIN') %}
+													<a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal{{ grille_tarifaire.id }}" >
+														<i class="fa-solid fa-pen-to-square"></i>
+													</a>
+                                                    <div class="container">
+
+                                                        <div class="modal fade" id="modal{{ grille_tarifaire.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLabel">Modifier la grille tarifaires</h5>
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                        <div class="modal-body">
+                                                                            {{ form_start(forms[grille_tarifaire.id], {'action': path('app_croisiere_grille_edit', {'id': grille_tarifaire.id})}) }}
+                                                                            {{ form_widget(forms[grille_tarifaire.id] ) }}
+                                                                            <div class="d-flex justify-content-end">
+                                                                                <button style="font-size:15px;">{{ button_label|default('valider') }}</button>
+                                                                            </div>
+                                                                            {{ form_end(forms[grille_tarifaire.id]) }}
+
+                                                                        </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                </div>
+													{{ include('croisiere/grille_tarifaire/_delete_form.html.twig') }}
+												{% endif %}
+												<a href="{{ path('app_croisiere_reservation_new', {'id': grille_tarifaire.id}) }}" class="btn btn-primary" >Réserver</a>
+												{# <a href="#" class="btn btn-primary text-center" data-bs-toggle="modal" data-bs-target="#booking">Réserver</a>
+												<div class="modal fade" id="booking" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h4 class="modal-title">Formulaire de réservation </h4>
+																<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+															</div>
+															<div class="modal-body">
+															    {{ form_start(form1, {'action': path('app_croisiere_reservation_new', {'id': grille_tarifaire.id})}) }}
+																{{ form_widget(form1 ) }}
+																<div class="d-flex justify-content-end">
+																	<button class=" btn-primary">{{ button_label|default('confimer') }}</button>
+																</div>
+															
+																{{ form_end(form1) }}
+
+																
+															</div>
+														</div>
+													</div>
+												</div> #}
+
+
+											</div>
+										</td>
+									</tr>
+								{% else %}
+									<tr>
+										<td colspan="4">no records found</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+
+    <div class="container">
+
+		<div class="modal fade" id="myModale" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Ajouter une grille tarifaires</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						{{ form_start(form, {'action': path('app_croisiere_grille_new', {'id': croisiere.id})}) }}
+                        {{ form_widget(form ) }}
+                        <div class="d-flex justify-content-end">
+                            <button style="font-size:15px;">{{ button_label|default('valider') }}</button>
+                        </div>
+                        {{ form_end(form) }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+     
+{% endblock %}
+
+{% block javascripts %}
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+	<script src="{{ asset ('assets/js/scripts.js') }}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+	<script src="{{ asset ('assets/js/datatables-simple-demo.js') }}"></script>
+{% endblock %}

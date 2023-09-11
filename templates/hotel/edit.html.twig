@@ -1,0 +1,13 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}Edit Hotel
+{% endblock %}
+
+{% block body %}
+	<h1>Modifier l'hôtel {{ hotel.nom }}</h1>
+
+	{{ include('hotel/_form.html.twig') }}
+	
+
+
+{% endblock %}

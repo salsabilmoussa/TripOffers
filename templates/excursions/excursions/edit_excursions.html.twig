@@ -1,0 +1,34 @@
+{% block body %}
+{% if is_granted('ROLE_ADMIN') %}
+<div class="d-flex justify-content-end">
+            <button class=" btn-primary" data-bs-toggle="modal" data-bs-target="#md">
+            <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+</div>
+{% endif %}
+{% for e in excursions.excursion %}
+    <li>{{ e.title }}</li>
+{% endfor %}
+
+
+<div class="container">
+        <div class="modal fade" id="md" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">	
+                        <h4>Modifier la liste des éxcursions</h4>			
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">	
+                    {{ form_start(form, {'action': path('app_excursions_edit_excursions', {'id': excursions.id})}) }}
+                    {{ form_widget(form ) }}
+                    <div class="d-flex justify-content-end">
+                        <button style="font-size:15px;">{{ button_label|default('valider') }}</button>
+                    </div>
+                    {{ form_end(form) }}			
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}    

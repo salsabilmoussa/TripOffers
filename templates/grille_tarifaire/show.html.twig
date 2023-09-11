@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GrilleTarifaire{% endblock %}
+
+{% block body %}
+    <h1>GrilleTarifaire</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ grille_tarifaire.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ grille_tarifaire.title }}</td>
+            </tr>
+            <tr>
+                <th>DateDebut</th>
+                <td>{{ grille_tarifaire.dateDebut ? grille_tarifaire.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DateFin</th>
+                <td>{{ grille_tarifaire.dateFin ? grille_tarifaire.dateFin|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ grille_tarifaire.prix }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_grille_tarifaire_index') }}">back to list</a>
+
+    <a href="{{ path('app_grille_tarifaire_edit', {'id': grille_tarifaire.id}) }}">edit</a>
+
+    {{ include('grille_tarifaire/_delete_form.html.twig') }}
+{% endblock %}

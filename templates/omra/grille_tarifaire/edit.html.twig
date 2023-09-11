@@ -1,0 +1,23 @@
+ <div class="container">
+
+		<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Ajouter une grille tarifaires</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+                        <div class="modal-body">
+                            {{ form_start(form, {'action': path('app_omra_grille_edit', {'id': grille_tarifaire.id})}) }}
+                            {{ form_widget(form ) }}
+                            <div class="d-flex justify-content-end">
+                                <button style="font-size:15px;">{{ button_label|default('valider') }}</button>
+                            </div>
+                            {{ form_end(form) }}
+
+                        </div>
+				</div>
+			</div>
+		</div>
+ </div>
+

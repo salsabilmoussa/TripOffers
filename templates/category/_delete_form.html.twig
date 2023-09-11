@@ -1,0 +1,34 @@
+{# <form method="post" action="{{ path('app_category_delete', {'id': category.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+	<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
+	<button style="font-size:10px;color:red">
+		<i class="fa-solid fa-trash-can"></i>
+	</button>
+</form> #}
+
+
+<button style="font-size:10px;color:red" data-bs-toggle="modal" data-bs-target="#myModal{{ category.id}}">
+	<i class="fa-solid fa-trash-can"></i>
+</button>
+
+<div class="container">
+
+	<div class="modal fade" id="myModal{{ category.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Êtes-vous sûr de vouloir supprimer  la catégorie
+						{{ category.id}}
+						?</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+					<form method="post" action="{{ path('app_category_delete', {'id': category.id}) }}">
+						<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
+						<button type="submit" class="btn btn-primary">Ok</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

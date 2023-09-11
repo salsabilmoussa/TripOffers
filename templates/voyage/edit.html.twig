@@ -1,0 +1,60 @@
+{% extends 'template.html.twig' %}
+{% block title %}Modifier 
+{% endblock %}
+{# {% block PageTitle %}<h2>Modifier le voyage {{ voyage.title}}</h2>{% endblock %} #}
+{% block stylesheets %}
+<link href={{asset ('assets/vendor/bootstrap/css/bootstrap.min.css')}} rel="stylesheet"/>
+<link href={{asset ('assets/vendor/bootstrap-icons/bootstrap-icons.css')}} rel="stylesheet"/>
+<link href={{asset ('assets/vendor/boxicons/css/boxicons.min.css')}} rel="stylesheet"/>
+<link href={{asset ('assets/vendor/quill/quill.snow.css')}} rel="stylesheet"/>
+<link href={{asset ('assets/vendor/quill/quill.bubble.css')}} rel="stylesheet"/>
+<link href={{asset ('assets/vendor/remixicon/remixicon.css')}} rel="stylesheet"/>
+<link href={{asset ('assets/vendor/simple-datatables/style.css')}} rel="stylesheet"/>
+<link href={{asset ('assets/css/style.css')}} rel="stylesheet"/>
+<link href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+{% endblock %}
+{% block body %}
+<style>
+.custom-border {
+  box-shadow: 0 0 10px  rgba(152, 151, 151, 0.5); /* Couleur RVB noire (0, 0, 0) avec une opacité de 0.5 */
+}
+ h4 {
+    color: black; /* Couleur du texte en noir */
+    font-weight: bold; /* Style en gras */
+  }
+</style>
+        <h4 >Informations générales</h4>	
+        <div class=" custom-border rounded p-4 my-4">
+            {# {{ include('voyage/_form.html.twig', {'button_label': 'Enregistrer'}) }} #}
+            {{ render(controller('App\\Controller\\voyage\\InfoGeneralController::editInfoGeneral', {'id': voyage.id})) }}
+        </div>    
+            <br><br><br>
+        <h4>Détails</h4>
+        <div class=" custom-border rounded p-4 my-4">
+            {{ render(controller('App\\Controller\\voyage\\DetailsController::editDetails', {'id': voyage.id})) }}
+        </div>    
+            <br><br><br>
+        <h4>Excursions</h4>
+        <div class=" custom-border rounded p-4 my-4">
+            {{ render(controller('App\\Controller\\voyage\\ExcursionsController::editExcursions', {'id': voyage.id})) }}
+        </div>    
+            <br><br><br>
+        <h4>La liste des grilles tarifaires</h4>
+        <div class=" custom-border rounded p-4 my-4">
+            {{ render(controller('App\\Controller\\voyage\\GrilleTarifaireController::indexGrilletarifaire', {'id': voyage.id})) }}
+        </div>    
+   
+
+{% block javascripts %}
+<script src={{asset ('assets/vendor/apexcharts/apexcharts.min.js')}}></script>
+<script src={{asset ('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}></script>
+<script src={{asset ('assets/vendor/chart.js/chart.umd.js')}}></script>
+<script src={{asset ('assets/vendor/echarts/echarts.min.js')}}></script>
+<script src={{asset ('assets/vendor/quill/quill.min.js')}}></script>
+<script src={{asset ('assets/vendor/simple-datatables/simple-datatables.js')}}></script>
+<script src={{asset ('assets/vendor/tinymce/tinymce.min.js')}}></script>
+<script src={{asset ('assets/vendor/php-email-form/validate.js')}}></script>
+<script src={{asset ('assets/js/main.js')}}></script>
+{% endblock %}
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}Modifier 
+{% endblock %}
+
+{% block body %}
+	<h1>Modifier l'adresse {{ bonadresse.title }}</h1>
+
+	{{ include('bonadresse/_form.html.twig', {'button_label': 'Enregistrer'}) }}
+
+
+{% endblock %}

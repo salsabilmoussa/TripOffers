@@ -1,0 +1,26 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}Hello LookupController!
+{% endblock %}
+
+{% block body %}
+	<h1>Résultats de la recherche<h1>
+			<h2 class="my-4">Nous avons trouvé les bonadresses suivants pour vous :
+			</h2>
+			{% for bonadresse in bonadresses %}
+				<div>
+					<h3>{{ bonadresse.title }}</h3>
+					<div>
+						<a href="{{ path('app_bonadresse_show', {'id': bonadresse.id}) }}">Consulter le contenu de l'bonadresse</a>
+					</div>
+				</div>
+
+
+			{% else %}
+				<div>
+					Aucun bonadresse disponible pour ces critères de recherche
+				</div>
+
+			{% endfor %}
+
+		{% endblock %}
